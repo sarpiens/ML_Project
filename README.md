@@ -98,7 +98,7 @@ En conjunto, al aplicar los umbrales para las dintintas audiencias de negocio so
 
 - **Lenguaje:** Python. Este análisis está desarrollado en **Python 3.12.10**. Los notebooks y scripts utilizan varias librerías integradas en la biblioteca estándar de Python.
 
-- **Librerías Externas:** Para que el análisis funcione correctamente, es necesario instalar librerías de terceros (`pandas`, `numpy`, `scikit-learn`, `xgboost`,`lightgbm`, `catboost`, `scipy`,`shap`, entre otras). Se ha incluido un archivo requirements.txt con todas las librerías y versiones del entorno utilizado.
+- **Librerías Externas:** Para que el análisis funcione correctamente, es necesario instalar librerías de terceros (`pandas`, `numpy`, `scikit-learn`, `xgboost`,`lightgbm`, `catboost`, `scipy`,`shap`, entre otras). Se ha incluido un archivo `requirements.txt con todas las librerías y versiones del entorno utilizado.
 
 ## Instrucciones de Ejecución
 
