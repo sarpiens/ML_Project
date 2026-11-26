@@ -70,7 +70,7 @@ Tras comparar cinco algoritmos base y optimizar los mejores candidatos (`CatBoos
 | Modelo | Versión | Set | Brier Score (↓) | Average Precision (↑) | ROC-AUC (↑) |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | **LightGBM** | *Baseline* | `Train CV=5` | 0.1160 | 0.3535 | 0.7728 |
-| **LightGBM** | **Tuned** | `Train CV=5` | 0.1123 | 0.3833 | 0.7854 |
+| **LightGBM** | **Tuned** | `Train CV=5` | **0.1123** | **0.3833** | **0.7854** |
 | **LightGBM** | **Tuned** | `Test` | **0.1149** | **0.3559** | **0.7698** |
 
 El modelo final (`LightGBM Tuned`) generaliza de forma estable, más que duplicando la tasa base de azar y manteniendo una calibración fiable sin señales de *overfitting* ni *underfitting*.
