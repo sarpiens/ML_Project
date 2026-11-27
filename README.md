@@ -49,9 +49,9 @@ Asi mismo, también se aplicaron las siguientes métricas para la evaluación de
 
 - `Precision`: De todos los usuarios que superan el umbral, qué proporción sí compró en esa audiencia (`TP / Total de Positivos Predichos`). Nos ayuda a medir la calidad del patrón capturado.
 
-* `Recall`: De todos los compradores reales del conjunto, qué proporción sí compró en esa audiencia (`TP / Total Positivos Reales`). Mide la Ganancia Acumulada (*Cumulative Gain*), o cobertura, es decir, cuánto comportamiento comprador estamos capturando.
+* `Recall`: De todos los compradores reales del conjunto, qué proporción sí compró en esa audiencia (`TP / Total Positivos (TP + FN)`). Mide la Ganancia Acumulada (*Cumulative Gain*), o cobertura, es decir, cuánto comportamiento comprador estamos capturando.
 
-- `Lift`: Mide cuántas veces supera el modelo a una selección aleatoria (`Precision / Tasa Base`, donde la proporción base de compradores en train **0.155**).
+- `Lift`: Mide cuántas veces supera el modelo a una selección aleatoria (`Precision / Tasa Base`, donde la proporción base de compradores en train y test es **0.155**).
 
 * `Leads Retargeting (FP)`: Usuarios que superan el umbral pero no compraron. Representan nuestro público accionable (leads potenciales), es decir, el volumen de personas a las que impactar con diferentes estrategias de retargeting.
 
