@@ -51,21 +51,21 @@ Asi mismo, también se aplicaron las siguientes métricas para la evaluación de
 
 * `Recall`: De todos los compradores reales del conjunto, qué proporción sí compró en esa audiencia (`TP / Total Positivos Reales`). Mide la Ganancia Acumulada (*Cumulative Gain*), o cobertura, es decir, cuánto comportamiento comprador estamos capturando.
 
-- `Lift`: Mide cuántas veces supera el modelo a una selección aleatoria (`Precision / Tasa Base`, donde la proporción base de compradores en train es **0.155**).
+- `Lift`: Mide cuántas veces supera el modelo a una selección aleatoria (`Precision / Tasa Base`, donde la proporción base de compradores en train **0.155**).
 
-* `Leads_Retargeting_FP`: Usuarios que superan el umbral pero no compraron. Representan nuestro público accionable (leads potenciales), es decir, el volumen de personas a las que impactar con diferentes estrategias de retargeting.
+* `Leads Retargeting (FP)`: Usuarios que superan el umbral pero no compraron. Representan nuestro público accionable (leads potenciales), es decir, el volumen de personas a las que impactar con diferentes estrategias de retargeting.
 
-- `Total_Predicted_Positives`: Total de usuarios que superan el umbral en esa audiencia (`TP + FP`).
+- `Total Predicted Positives`: Total de usuarios que superan el umbral en esa audiencia (`TP + FP`).
 
-* `Perc_LeadsFP_Predicted_Positives`: El porcentaje de *leads* accionables (`FP`) respecto al total de Positivos Predichos en esa audiencia (`TP + FP`). Útil para ver qué parte de la audiencia target serían *leads* accionables.
+* `Perc. LeadsFP Predicted Positives`: El porcentaje de *leads* accionables (`FP`) respecto al total de Positivos Predichos en esa audiencia (`TP + FP`). Útil para ver qué parte de la audiencia target serían *leads* accionables.
 
-- `Perc_LeadsFP_Total_Users`: El porcentaje de *leads* accionables (`FP`) respecto al total de usuarios del conjunto train. Útil para ver qué parte del total de usuarios del conjunto train serían *leads* accionables.
+- `Perc. LeadsFP Total Users`: El porcentaje de *leads* accionables (`FP`) respecto al total de usuarios del conjunto train. Útil para ver qué parte del total de usuarios del conjunto train serían *leads* accionables.
 
 ## Resultados Obtenidos
 
 Tras comparar cinco algoritmos base y optimizar los mejores candidatos (`CatBoost` y `LightGBM`) mediante `GridSearchCV` (`CV=5`), el modelo ganador fue **`LightGBM` (Tuned)**.
 
-### Evaluación del Modelo (Train CV vs. Test)
+### Evaluación del Modelo Final (Train CV vs. Test)
 
 | Modelo | Versión | Set | Brier Score (↓) | Average Precision (↑) | ROC-AUC (↑) |
 | :--- | :--- | :---: | :---: | :---: | :---: |
@@ -73,7 +73,7 @@ Tras comparar cinco algoritmos base y optimizar los mejores candidatos (`CatBoos
 | **LightGBM** | **Tuned** | `Train CV=5` | **0.1123** | **0.3833** | **0.7854** |
 | **LightGBM** | **Tuned** | `Test` | **0.1149** | **0.3559** | **0.7698** |
 
-El modelo final (`LightGBM Tuned`) generaliza de forma estable, más que duplicando la tasa base de azar y manteniendo una calibración fiable sin señales de *overfitting* ni *underfitting*.
+El modelo final (`LightGBM Tuned`) generaliza de forma estable, más que duplicando la tasa base de azar (0.155) y manteniendo una calibración fiable sin señales de *overfitting* ni *underfitting* severo.
 
 ### Explicabilidad (Feature Importance y SHAP)
 
@@ -81,7 +81,7 @@ El análisis de *Feature Importance* y *SHAP* reveló que las variables relacion
 
 ### Evaluación de Negocio (Train CV vs Test Set)
 
-| Audiencia | Umbral_Score | Precision | Recall | Lift (Precision / Prop_TP) | Leads_Retargeting_FP | Total_Predicted_Positives | Perc_LeadsFP_Predicted_Positives | Perc_LeadsFP_Total_Users |
+| Audiencia | Umbral_Score | Precision | Recall | Lift | Leads Retargeting (FP) | Total Predicted Positives | Perc. LeadsFP from Predicted Positives | Perc. LeadsFP from Total Users |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **VIP (Top 5 %) Train CV=5** | 0.4215 | 0.5061 | 0.1638 | **3.27x** | 244 | 494 | 49.39 % | 2.47 % |
 | **Estándar (Top 15 %) Train CV=5** | 0.2867 | 0.4000 | 0.3879 | **2.59x** | 888 | 1480 | 60.00 % | 9.00 % |
@@ -90,7 +90,7 @@ El análisis de *Feature Importance* y *SHAP* reveló que las variables relacion
 | **Estándar (Top 15 %) Test** | 0.2867 | 0.4016 | 0.3953 | **2.59x** | 225 | 376 | 59.84 % | 9.12 % |
 | **Amplia (Top 30 %) Test** | 0.2054 | 0.3058 | 0.6204 | **1.97x** | 538 | 775 | 69.42 % | 21.82 % |
 
-En conjunto, al aplicar los umbrales para las dintintas audiencias de negocio sobre el `Test Set` **las métricas mantienen su eficacia y estabilidad** al enfrentarse a datos nuevos que no ha visto nunca, al compararlas con las métricas correspondientes obtenidas con el Train Set.
+En conjunto, al aplicar los umbrales para las distintas audiencias de negocio sobre el `Test Set` **las métricas mantienen su eficacia y estabilidad** cuando el modelo final se enfrenta a datos nuevos que no ha visto nunca, al compararlas con las métricas correspondientes obtenidas con el Train Set.
 
 > Umbral_Score, corresponde al *propensity score* utilizado como umbral para definir las distintas audiencias de interés calculado sobre las predicciones del Train Set con validación-cruzada (CV).
 
